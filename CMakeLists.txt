@@ -44,6 +44,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 if (APPLE)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-delete-non-virtual-dtor -Wno-deprecated -Wno-pessimizing-move")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wno-delete-non-virtual-dtor -Wno-deprecated -Wno-pessimizing-move")
+set(CMAKE_CXX_STANDARD 11)
 endif(APPLE)
 
 # Debug flags
@@ -61,14 +62,14 @@ set(CMAKE_C_FLAGS_RELEASEGEN
 # Release flags
 if("${APP_ARCH}" STREQUAL "amd64")
     # Use this flags only on amd64
-    set(CMAKE_CXX_FLAGS_RELEASE 
+    set(CMAKE_CXX_FLAGS_RELEASE
      "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Werror -ffast-math -funroll-loops -march=corei7-avx -O3 -std=c++11")
     set(CMAKE_C_FLAGS_RELEASE
      "${CMAKE_C_FLAGS_RELEASE} -Wall -Werror -ffast-math -funroll-loops -march=corei7-avx -O3 -std=c99")
     message("amd64 CXXFLAGS ${CMAKE_CXX_FLAGS_RELEASE}")
 elseif("${APP_ARCH}" STREQUAL "i386")
     # Use this flags only on amd64
-    set(CMAKE_CXX_FLAGS_RELEASE 
+    set(CMAKE_CXX_FLAGS_RELEASE
      "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Werror -ffast-math -funroll-loops -march=corei7-avx -O3 -std=c++11")
     set(CMAKE_C_FLAGS_RELEASE
      "${CMAKE_C_FLAGS_RELEASE} -Wall -Werror -ffast-math -funroll-loops -march=corei7-avx -O3 -std=c99")
@@ -102,8 +103,8 @@ else()
 endif()
 
 set(Boost_USE_STATIC_LIBS OFF)
-set(Boost_USE_MULTITHREADED ON)  
-set(Boost_USE_STATIC_RUNTIME OFF) 
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost 1.50.0
     COMPONENTS
     unit_test_framework
@@ -152,7 +153,7 @@ add_subdirectory(unittests)
 
 file(COPY
     docker/Dockerfile
-    docker/akumulid  
+    docker/akumulid
     docker/prev.sh
     docker/startup.sh
     DESTINATION
